@@ -20,6 +20,15 @@ impl<F: FromUniformBytes<64>, const T: usize, const RATE: usize> Poseidon<F, T, 
         }
     }
 
+    /// Constructs a clear state poseidon instance with spec
+    pub fn new_with_spec(spec: Spec<F, T, RATE>) -> Self {
+        Self {
+            spec,
+            state: State::default(),
+            absorbing: Vec::new(),
+        }
+    }
+
     /// Appends elements to the absorption line updates state while `RATE` is
     /// full
     pub fn update(&mut self, elements: &[F]) {
