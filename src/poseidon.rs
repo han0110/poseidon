@@ -10,9 +10,12 @@ pub struct Poseidon<F: PrimeField, const T: usize, const RATE: usize> {
     absorbing: Vec<F>,
 }
 
-impl<F: FromUniformBytes<64>, const T: usize, const RATE: usize> Poseidon<F, T, RATE> {
+impl<F: PrimeField, const T: usize, const RATE: usize> Poseidon<F, T, RATE> {
     /// Constructs a clear state poseidon instance
-    pub fn new(r_f: usize, r_p: usize) -> Self {
+    pub fn new(r_f: usize, r_p: usize) -> Self
+    where
+        F: FromUniformBytes<64>,
+    {
         Self {
             spec: Spec::new(r_f, r_p),
             state: State::default(),
